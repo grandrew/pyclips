@@ -1,6 +1,11 @@
 # test_print.py
 
-import sys, re, StringIO
+import sys, re
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 """revision $Id: test_print.py 247 2005-02-23 00:28:47Z Franz $
 TESTS:
@@ -39,7 +44,7 @@ from test_00 import ctestcase
 
 def i_returnOutput(func, args=None, kwargs=None):
     """execute a function while redirecting stdout"""
-    io = StringIO.StringIO()
+    io = StringIO()
     save_stdout = sys.stdout
     sys.stdout = io
     try:

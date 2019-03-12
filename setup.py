@@ -262,6 +262,9 @@ import types as _types
 # the low-level module
 import clips._clips as _c
 
+if _sys.version_info > (3, 0):
+    long = int
+    unicode = str
 
 # ========================================================================== #
 # globals

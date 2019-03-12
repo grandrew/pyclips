@@ -37,8 +37,9 @@ import os as  _os
 import clips._clips as _c
 
 # check Python version, and issue an exception if not supported
-if _sys.version[:3] < "2.4":
-    raise _c.ClipsError("M99: Python 2.4 or higher required")
+if _sys.version_info > (3, 0):
+    long = int
+    unicode = str
 
 
 # ========================================================================== #

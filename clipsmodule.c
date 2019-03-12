@@ -32,6 +32,13 @@
 
 #if PY_MAJOR_VERSION >= 3
     #define staticforward static
+    #define PyInt_FromLong PyLong_FromLong
+    #define PyInt_AsLong PyLong_AsLong
+    #define PyString_FromString PyUnicode_FromString
+    #define PyString_Check PyUnicode_Check
+    #define PyString_AsString PyUnicode_AsUnicode
+    #define PyInt_FromLong PyLong_FromLong
+    #define PyInt_Check PyLong_Check
 #endif
 
 /* some configuration values that should generally not be changed */

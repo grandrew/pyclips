@@ -1909,7 +1909,7 @@ class Generic(object):
         """return the list of Method indices for this Generic"""
         o = _c.getDefmethodList(self.__defgeneric)
         li, mli = Multifield(_cl2py(o)), Multifield([])
-        l = len(li) / 2
+        l = int(len(li) / 2)
         for x in range(0, l):
             mli.append(li[2 * x + 1])
         return mli
@@ -2431,7 +2431,7 @@ class Class(object):
         """return list of MessageHandler constructs of this Class"""
         o = _c.getDefmessageHandlerList(self.__defclass, False)
         li, rv = Multifield(_cl2py(o)), []
-        l = len(li) / 3
+        l = int(len(li) / 3)
         for x in range(0, l):
             rv.append(Multifield([li[x * 3], li[x * 3 + 1], li[x * 3 + 2]]))
         return Multifield(rv)
@@ -2440,7 +2440,7 @@ class Class(object):
         """return list of MessageHandlers of this Class and superclasses"""
         o = _c.getDefmessageHandlerList(self.__defclass, True)
         li, rv = Multifield(_cl2py(o)), []
-        l = len(li) / 3
+        l = int(len(li) / 3)
         for x in range(0, l):
             rv.append(Multifield([li[x * 3], li[x * 3 + 1], li[x * 3 + 2]]))
         return Multifield(rv)
@@ -3576,7 +3576,7 @@ def MethodList():
     """return the list of all Methods"""
     o = _cl2py(_c.getDefmethodList())
     li = Multifield([])
-    l = len(o) / 2
+    l = int(len(o) / 2)
     for x in range(l):
         li.append(Multifield([o[2 * x], o[2 * x + 1]]))
     return li
@@ -3677,7 +3677,7 @@ def MessageHandlerList():
     """return list of MessageHandler constructs"""
     o = _c.getDefmessageHandlerList()
     li, rv = Multifield(_cl2py(o)), []
-    l = len(li) / 3
+    l = int(len(li) / 3)
     for x in range(0, l):
         rv.append(Multifield([li[x * 3], li[x * 3 + 1], li[x * 3 + 2]]))
     return Multifield(rv)

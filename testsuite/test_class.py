@@ -104,7 +104,7 @@ class ctc_Class(ctestcase):
             e.Clear()
             e.Reset()
             li = e.ClassList()
-            self.assertEqual(default_classes, map(str, li))
+            self.assertEqual(default_classes, list(map(str, li)))
             c0 = e.FindClass("USER")
             c1 = e.FindClass("OBJECT")
             c2 = e.BuildClass("C", "(is-a USER)", "New Class")

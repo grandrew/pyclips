@@ -6,6 +6,11 @@ TESTS:
 COOL rule execution coherence on SYMBOL
 
 """
+import sys as _sys
+
+if _sys.version_info > (3, 0):
+    unicode = str
+
 import clips
 from test_00 import ctestcase
 

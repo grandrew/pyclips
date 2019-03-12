@@ -24,10 +24,11 @@
 """PyCLIPS
 A Python module to interface the CLIPS expert system shell library."""
 
+import subprocess
 
 __revision__ = "$Id: setup.py 342 2008-02-22 01:17:23Z Franz $"
-print "Module 'clips': Python to CLIPS interface"
-print "Setup revision: %s" % __revision__
+print("Module 'clips': Python to CLIPS interface")
+print("Setup revision: %s" % __revision__)
 
 
 # the following values generate the version number and some of them
@@ -534,8 +535,8 @@ def _i_convert_fullclass(name, li):
     head4 = INDENT + INDENT + INDENT + "__env = private_environment\n"
     head5 = INDENT + INDENT + INDENT + "__envobject = environment_object\n"
     foot1 = INDENT + INDENT + "return %s\n"  % name
-    return [head1, head2, head3] + map(_i_convert_classline, docs) \
-       + [head4, head5] + map(_i_convert_classline, li1) + [foot1]
+    return [head1, head2, head3] + list(map(_i_convert_classline, docs)) \
+       + [head4, head5] + list(map(_i_convert_classline, li1)) + [foot1]
 
 # convert an entire function, provided as a list of lines
 def _i_convert_fullfunction(name, li):
@@ -544,7 +545,7 @@ def _i_convert_fullfunction(name, li):
 # create the list of lines that build inner classes in Environment.__init__
 def _i_create_inner_classes():
     inner = []
-    kclasses = ALL_CLASSES.keys()
+    kclasses = list(ALL_CLASSES.keys())
     kclasses.sort()
     for x in kclasses:
         inner.append(
@@ -558,13 +559,13 @@ def convert_module(filename):
     _i_read_module(f)
     f.close()
     classes = []
-    kclasses = ALL_CLASSES.keys()
+    kclasses = list(ALL_CLASSES.keys())
     kclasses.sort()
     for x in kclasses:
         classes += _i_convert_fullclass(x, ALL_CLASSES[x])
     initclasses = _i_create_inner_classes()
     functions = []
-    kfunctions = ALL_FUNCTIONS.keys()
+    kfunctions = list(ALL_FUNCTIONS.keys())
     kfunctions.sort()
     for x in kfunctions:
         functions += _i_convert_fullfunction(x, ALL_FUNCTIONS[x])
@@ -725,7 +726,7 @@ sys.stdout.write("Done!\n")
 
 # retrieve used CLIPS version
 clips_version = get_clips_version(_p("clipssrc", "constant.h"))
-print "Found CLIPS version: %s" % clips_version
+print("Found CLIPS version: %s" % clips_version)
 maj, min = clips_version.split('.', 1)
 CFLAGS = [
     '-DPYCLIPS',
@@ -765,15 +766,17 @@ if uses_gcc:
 
 
 # apply "optional" patches
-i, o, e = os.popen3("patch --version")
-vs = o.read()
-o.close()
-e.close()
+try:
+    p = subprocess.Popen(['patch', '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.wait()
+    vs = p.stdout.read()
+except WindowsError:
+    vs = ''
 if vs:
-    print "'patch' utility found, applying selected patchsets..."
+    print("'patch' utility found, applying selected patchsets...")
     import shutil
     def apply_patchset(ps):
-        print "Applying patchset '%s':" % ps
+        print("Applying patchset '%s':" % ps)
         pattern = "*.[ch]-??.v%s-%s.diff" % (clips_version, ps)
         for x in glob(_p(ClipsPATCH_dir, pattern)):
             pfn = os.path.basename(x)
@@ -789,9 +792,9 @@ if vs:
                 patchcmd = "patch -l -s -p0 %s < %s" % (
                     _p(ClipsLIB_dir, sourcefile), x)
                 if not os.system(patchcmd):
-                    print "ok."
+                    print("ok.")
                 else:
-                    print "FAILED"
+                    print("FAILED")
     for x in APPLY_PATCHSETS:
         apply_patchset(x)
 
@@ -808,7 +811,7 @@ version = (%s, %s, %s, %s)
 f.close()
 
 # start setup
-print "Standard setup in progress:"
+print("Standard setup in progress:")
 
 
 # The following is a warning to users of ez_setup when using GCC (for
@@ -834,9 +837,9 @@ if not DEBUGGING:
         import ez_setup
         ez_setup.use_setuptools()
         from setuptools import setup, Extension
-        print "Using setuptools instead of distutils..."
+        print("Using setuptools instead of distutils...")
         if not uses_gcc:
-            print warn_default_gcc
+            print(warn_default_gcc)
     except:
         from distutils.core import setup, Extension
 else:

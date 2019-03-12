@@ -5,3 +5,9 @@ CLIPSSrc.zip
 clipssrc
 build
 cvtenv.py
+.idea/
+*.pyc
+*.egg-info/
+clips/_version.py
+clips/_eclips_wrap.py
+*.pyd

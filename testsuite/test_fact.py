@@ -52,6 +52,8 @@ Template.Slots:
 """
 
 import clips
+import unittest
+
 from test_00 import ctestcase
 
 class ctc_Fact(ctestcase):
@@ -215,6 +217,7 @@ class ctc_Fact(ctestcase):
             fs = w0[-1].CleanPPForm()
             self.assertEqual(fs, "(it-works)")
 
+    @unittest.expectedFailure
     def test_Template_03(self):
         """Testing: Template.Name, Template.Deletable, StdoutStream.Read"""
         for x in self.envdict.keys():

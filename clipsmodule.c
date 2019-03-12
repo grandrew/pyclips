@@ -30,6 +30,9 @@
 
 #include "clipsmodule.h"
 
+#if PY_MAJOR_VERSION >= 3
+    #define staticforward static
+#endif
 
 /* some configuration values that should generally not be changed */
 #define MIN_PPBUFFER_SIZE 256   /* minimum pretty print buffer size */
@@ -657,8 +660,7 @@ static void clips_EnvObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_EnvType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "environment",
     sizeof(clips_EnvObject),
     0,
@@ -694,8 +696,7 @@ static void clips_DeftemplObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DeftemplType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "deftemplate",
     sizeof(clips_DeftemplObject),
     0,
@@ -967,7 +968,7 @@ F_INLINE BOOL reset_FactObject_lock(clips_EnvObject *pyenv) {
 static void clips_FactObject_dealloc(PyObject *self) {
     void *p = clips_fact_value(self);
 #ifdef USE_NONASSERT_CLIPSGCLOCK
-    LOPTR_ITEM ***hm = 
+    LOPTR_ITEM ***hm =
         (LOPTR_ITEM ***)GetEnvironmentData(
             clips_fact_env(self), STRAYFACTS_DATA);
     SPEC_REMOVE_HASH_FACT(*hm, self);
@@ -979,8 +980,7 @@ static void clips_FactObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_FactType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "fact",
     sizeof(clips_FactObject),
     0,
@@ -1020,8 +1020,7 @@ static void clips_AddressObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_AddressType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "address",
     sizeof(clips_AddressObject),
     0,
@@ -1057,8 +1056,7 @@ static void clips_DeffactsObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DeffactsType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "deffacts",
     sizeof(clips_DeffactsObject),
     0,
@@ -1094,8 +1092,7 @@ static void clips_DefruleObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DefruleType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "defrule",
     sizeof(clips_DefruleObject),
     0,
@@ -1131,8 +1128,7 @@ static void clips_ActivationObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_ActivationType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "activation",
     sizeof(clips_ActivationObject),
     0,
@@ -1168,8 +1164,7 @@ static void clips_DefglobalObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DefglobalType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "defglobal",
     sizeof(clips_DefglobalObject),
     0,
@@ -1205,8 +1200,7 @@ static void clips_DeffunctionObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DeffunctionType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "deffunction",
     sizeof(clips_DeffunctionObject),
     0,
@@ -1242,8 +1236,7 @@ static void clips_DefgenericObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DefgenericType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "defgeneric",
     sizeof(clips_DefgenericObject),
     0,
@@ -1279,8 +1272,7 @@ static void clips_DefmethodObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DefmethodType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "defmethod",
     sizeof(clips_DefmethodObject),
     0,
@@ -1316,8 +1308,7 @@ static void clips_DefclassObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DefclassType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "defclass",
     sizeof(clips_DefclassObject),
     0,
@@ -1381,8 +1372,7 @@ static void clips_InstanceObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_InstanceType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "instance",
     sizeof(clips_InstanceObject),
     0,
@@ -1418,8 +1408,7 @@ static void clips_DefinstancesObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DefinstancesType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "definstances",
     sizeof(clips_DefinstancesObject),
     0,
@@ -1455,8 +1444,7 @@ static void clips_DefmoduleObject_dealloc(PyObject *self) {
 }
 
 static PyTypeObject clips_DefmoduleType = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "defmodule",
     sizeof(clips_DefmoduleObject),
     0,
@@ -18087,8 +18075,7 @@ static int buffer_ungetchar(buffer_Object *o, int c) {
 
 /* the Python buffer Type */
 static PyTypeObject buffer_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "streambuffer",
     sizeof(buffer_Object),
     0,
@@ -18709,8 +18696,7 @@ static void guard_dealloc(PyObject *o) {
 
 /* the Python internal guard Type */
 static PyTypeObject guard_Type = {
-    PyObject_HEAD_INIT(NULL)
-    0,
+    PyVarObject_HEAD_INIT(NULL, 0)
     "__PyCLIPS_$iGuardType__",  /* the name is intentionally unusable */
     sizeof(guard_Object),
     0,
@@ -19395,7 +19381,7 @@ init_clips(void) {
     /* build the actual exception objects */
     PyExc_ClipsError = PyErr_NewException("_clips.ClipsError", NULL, NULL);
     PyDict_SetItemString(d, "ClipsError", PyExc_ClipsError);
-    
+
     PyExc_ClipsMemoryError = PyErr_NewException(
         "_clips.ClipsMemoryError", NULL, NULL);
     PyDict_SetItemString(d, "ClipsMemoryError", PyExc_ClipsMemoryError);

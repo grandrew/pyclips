@@ -19355,10 +19355,29 @@ static PyMethodDef g_methods[] = {
 };
 
 
+#if PY_MAJOR_VERSION >= 3
+    static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "_clips",     /* m_name */
+        clips__doc__,  /* m_doc */
+        -1,                  /* m_size */
+        g_methods,    /* m_methods */
+        NULL,                /* m_reload */
+        NULL,                /* m_traverse */
+        NULL,                /* m_clear */
+        NULL,                /* m_free */
+    };
+#endif
+
 /* initialization function */
 PYFUNC
 PyMODINIT_FUNC
-init_clips(void) {
+#if PY_MAJOR_VERSION >= 3
+PyInit__clips(void)
+#else
+init_clips(void)
+#endif
+{
     PyObject *m = NULL, *d = NULL;
 #ifdef USE_NONASSERT_CLIPSGCLOCK
     void *e = NULL;
@@ -19367,7 +19386,13 @@ init_clips(void) {
     PREPARE_DEALLOC_ENV();
 
     /* give the module a method map */
-    m = Py_InitModule3("_clips", g_methods, clips__doc__);
+    #if PY_MAJOR_VERSION >= 3
+        m = PyModule_Create(&moduledef);
+        if (m == NULL)
+            return NULL;
+    #else
+        m = Py_InitModule3("_clips", g_methods, clips__doc__);
+    #endif
     d = PyModule_GetDict(m);
 
     /* possibly install the environment deallocator */
@@ -19494,6 +19519,9 @@ init_clips(void) {
               clips_exitFunction);
     ActivateRouter("python");
 
+    #if PY_MAJOR_VERSION >= 3
+    return m;
+    #endif
 }
 
 

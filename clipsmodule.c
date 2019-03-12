@@ -18715,7 +18715,6 @@ static PyTypeObject guard_Type = {
 /* also prepare an object living in module namespace with an unusable name */
 #define PREPARE_DEALLOC_ENV() guard_Object *_ig = NULL;
 #define INSTALL_DEALLOC_ENV(_m) do { \
-        guard_Type.ob_type = &PyType_Type; \
         _ig = PyObject_New(guard_Object, &guard_Type); \
         PyModule_AddObject(_m, "__PyCLIPS_$iGuardObject__", (PyObject *)_ig); \
     } while(0)
@@ -19387,6 +19386,7 @@ init_clips(void) {
     PyDict_SetItemString(d, "ClipsMemoryError", PyExc_ClipsMemoryError);
 
     /* setup ob_type for types defined here */
+    /* This is only needed for dynamically linked extensions.
     clips_EnvType.ob_type = &PyType_Type;
     clips_DeftemplType.ob_type = &PyType_Type;
     clips_FactType.ob_type = &PyType_Type;
@@ -19400,6 +19400,7 @@ init_clips(void) {
     clips_DefclassType.ob_type = &PyType_Type;
 
     buffer_Type.ob_type = &PyType_Type;
+    */
 
     /* initialize the router system */
     clips_Streams = (PyDictObject *)PyDict_New();

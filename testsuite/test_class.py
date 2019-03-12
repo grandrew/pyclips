@@ -87,11 +87,14 @@ MAIN::INSTANCE
 MAIN::USER
 MAIN::INITIAL-OBJECT""".split()
 
+import clips
+from test_00 import ctestcase
+
 
 class ctc_Class(ctestcase):
     """test Class objects"""
 
-    def ctf_Class_01(self):
+    def test_Class_01(self):
         """Testing: BuildClass, FindClass, ClassList, {...}\n""" \
         """         Class.IsSubclassOf, Class.IsSuperclassOf,\n""" \
         """         Class.Subclasses, Class.Superclasses,\n""" \
@@ -118,7 +121,7 @@ class ctc_Class(ctestcase):
             self.assert_(c1.Abstract)
             self.assert_(not c1.Reactive)
 
-    def ctf_Class_02(self):
+    def test_Class_02(self):
         """Testing: Clear, Reset, Class.PPForm, Class.Description, Class.Module"""
         e0 = self.envdict['clips']
         e2 = self.envdict['env']
@@ -131,7 +134,7 @@ class ctc_Class(ctestcase):
         self.assertEqual(c0.Description(), c2.Description())
         self.assertEqual(c0.Module, c2.Module)
 
-    def ctf_Class_03(self):
+    def test_Class_03(self):
         """Testing: Class.BuildSubclass"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -141,7 +144,7 @@ class ctc_Class(ctestcase):
             D = C.BuildSubclass("D")
             self.assert_(C.IsSuperclassOf(D))
 
-    def ctf_Class_04(self):
+    def test_Class_04(self):
         """Testing: Class.WatchSlots, Class.WatchInstances"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -151,7 +154,7 @@ class ctc_Class(ctestcase):
             self.assert_(C.WatchSlots)
             self.assert_(C.WatchInstances)
 
-    def ctf_Class_05(self):
+    def test_Class_05(self):
         """Testing: Class.MessageHandlerIndex, Class.MessageHandlerWatched"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -164,7 +167,7 @@ class ctc_Class(ctestcase):
             self.assert_(C.MessageHandlerWatched(1))
             self.assert_(C.MessageHandlerWatched(2))
 
-    def ctf_Class_06(self):
+    def test_Class_06(self):
         """Testing: Class.UnwatchMessageHandler, Class.WatchMessageHandler"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -177,7 +180,7 @@ class ctc_Class(ctestcase):
             C.WatchMessageHandler(1)
             self.assert_(C.MessageHandlerWatched(1))
 
-    def ctf_Class_07(self):
+    def test_Class_07(self):
         """Testing: Class.MessageHandlerName, Class.MessageHandlerType"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -190,7 +193,7 @@ class ctc_Class(ctestcase):
             self.assertEqual(C.MessageHandlerType(1), "primary")
             self.assertEqual(C.MessageHandlerType(2), "primary")
 
-    def ctf_Class_08(self):
+    def test_Class_08(self):
         """Testing: Class.NextMessageHandlerIndex, Class.MessageHandlerDeletable"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -202,7 +205,7 @@ class ctc_Class(ctestcase):
             self.assert_(not C.MessageHandlerDeletable(1))
             self.assert_(not C.MessageHandlerDeletable(2))
 
-    def ctf_Class_09(self):
+    def test_Class_09(self):
         """Testing: BuildMessageHandler, Class.AddMessageHandler, {...}"""
         """         Class.RemoveMessageHandler, Class.MessageHandlerPPForm"""
         for x in self.envdict.keys():
@@ -218,7 +221,7 @@ class ctc_Class(ctestcase):
             self.assert_(C.MessageHandlerDeletable(1))
             C.RemoveMessageHandler(2)
 
-    def ctf_Class_10(self):
+    def test_Class_10(self):
         """Testing: Class.BuildInstance, Class.RawInstance"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -229,7 +232,7 @@ class ctc_Class(ctestcase):
             i2 = C.RawInstance("i2")
             self.assertEqual(i1.Class.Name, i2.Class.Name)
 
-    def ctf_Class_11(self):
+    def test_Class_11(self):
         """Testing: Class.MessageHandlerList, Class.AllMessageHandlerList"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -243,7 +246,7 @@ class ctc_Class(ctestcase):
             liAD = D.AllMessageHandlerList()
             self.assert_(len(liD) < len(liAD))
 
-    def ctf_Instance_01(self):
+    def test_Instance_01(self):
         """Testing: BuildInstance, Class.Deletable, Instance.Slots, Instance.PPForm"""
         d1 = []
         for x in self.envdict.keys():
@@ -272,7 +275,7 @@ class ctc_Class(ctestcase):
             d1.append(i.PPForm())
         self.assertEqual(d1[0], d1[-1])
 
-    def ctf_Instance_02(self):
+    def test_Instance_02(self):
         """Testing: FindInstance, Instance.Class, Instance.Name"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -285,7 +288,7 @@ class ctc_Class(ctestcase):
             self.assertEqual(i.Class.Name, "C4")
             self.assertEqual(i.PPForm(), i0.PPForm())
 
-    def ctf_Instance_03(self):
+    def test_Instance_03(self):
         """Testing: LoadInstancesFromString"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -298,7 +301,7 @@ class ctc_Class(ctestcase):
             self.assertEqual(d.Class.Name, "C4")
             self.assertEqual(f.Class.Name, "C4")
 
-    def ctf_Slots_01(self):
+    def test_Slots_01(self):
         """Testing: Slots.Names, Slots.Exists, Slots.ExistsDefined, {...}"""
         """         Slots.NamesDefined"""
         for x in self.envdict.keys():
@@ -315,7 +318,7 @@ class ctc_Class(ctestcase):
             self.assert_(not C.Slots.Exists(li[2]))
             self.assert_(D.Slots.Exists(li[2]))
 
-    def ctf_Slots_02(self):
+    def test_Slots_02(self):
         """Testing: Slots.Cardinality, Slots.AllowedValues"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -328,7 +331,7 @@ class ctc_Class(ctestcase):
             self.assertEqual(len(D.Slots.Cardinality("s1")), 0)
             self.assert_(not D.Slots.AllowedValues("s1"))
 
-    def ctf_Slots_03(self):
+    def test_Slots_03(self):
         """Testing: Slots.Types, Slots.Sources"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -340,7 +343,7 @@ class ctc_Class(ctestcase):
             self.assertEqual(D.Slots.Types("s1")[0], "INTEGER")
             self.assertEqual(D.Slots.Sources("s1")[0], "C")
 
-    def ctf_Slots_04(self):
+    def test_Slots_04(self):
         """Testing: Slots.IsPublic, Slots.IsInitable, Slots.Range"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -357,7 +360,7 @@ class ctc_Class(ctestcase):
             self.assertEqual(int(C.Slots.Range("s1")[0]), 0)
             self.assertEqual(int(C.Slots.Range("s1")[1]), 1)
 
-    def ctf_Slots_05(self):
+    def test_Slots_05(self):
         """Testing: Slots.IsWritable, Slots.HasDirectAccess, Slots.Facets"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -369,7 +372,7 @@ class ctc_Class(ctestcase):
             self.assert_(C.Slots.HasDirectAccess("s1"))
             self.assert_(clips.Symbol("put-s1") in C.Slots.Facets("s1"))
 
-    def ctf_Slots_06(self):
+    def test_Slots_06(self):
         """Testing: Slots.DefaultValue, Slots.AllowedClasses"""
         for x in self.envdict.keys():
             e = self.envdict[x]

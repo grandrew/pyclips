@@ -11,7 +11,7 @@ def is_test_class(x):
     try: return issubclass(eval(x), ctestcase)
     except: return False
 def is_test_function(x):
-    try: return x.startswith('ctf_')
+    try: return x.startswith('test_')
     except: return False
 
 suite = unittest.TestSuite()

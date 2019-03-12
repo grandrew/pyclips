@@ -18,6 +18,8 @@ Eval
 
 """
 
+import clips
+from test_00 import ctestcase
 
 file01 = """
 (defrule duck-rule "The Duck Rule"
@@ -31,7 +33,7 @@ file01 = """
 class ctc_Toplevel(ctestcase):
     """test Class objects"""
 
-    def ctf_Top_01(self):
+    def test_Top_01(self):
         """Testing: BatchStar, Save, BSave"""
         f = open("t.clp", 'w')
         f.write(file01)
@@ -48,7 +50,7 @@ class ctc_Toplevel(ctestcase):
             e.Save("i_%s_c.dat" % x)
             e.BSave("i_%s_c.bdat" % x)
 
-    def ctf_Top_02(self):
+    def test_Top_02(self):
         """Testing: Load, SaveFacts"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -61,7 +63,7 @@ class ctc_Toplevel(ctestcase):
             self.assertEqual(e.FactList()[-1].CleanPPForm(), "(quack)")
             e.SaveFacts("i_%s_f.dat" % x)
 
-    def ctf_Top_03(self):
+    def test_Top_03(self):
         """Testing: LoadFacts"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -70,7 +72,7 @@ class ctc_Toplevel(ctestcase):
             e.LoadFacts("i_%s_f.dat" % x)
             self.assertEqual(e.FactList()[-1].CleanPPForm(), "(quack)")
 
-    def ctf_Top_04(self):
+    def test_Top_04(self):
         """Testing: BLoad"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -82,7 +84,7 @@ class ctc_Toplevel(ctestcase):
             e.Run()
             self.assertEqual(e.FactList()[-1].CleanPPForm(), "(quack)")
 
-    def ctf_Top_05(self):
+    def test_Top_05(self):
         """Testing: Build"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -94,7 +96,7 @@ class ctc_Toplevel(ctestcase):
             e.Run()
             self.assertEqual(e.FactList()[-1].CleanPPForm(), "(quack)")
 
-    def ctf_Top_06(self):
+    def test_Top_06(self):
         """Testing: Eval"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -103,7 +105,7 @@ class ctc_Toplevel(ctestcase):
             i = e.Eval("(+ 1 1)")
             self.assertEqual(int(i), 2)
 
-    def ctf_Top_07(self):
+    def test_Top_07(self):
         """Testing: Call"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -118,7 +120,7 @@ class ctc_Toplevel(ctestcase):
             self.assertEqual(str(s1), "eggspam")
             self.assertEqual(str(s2), "eggspam")
 
-    def ctf_Top_08(self):
+    def test_Top_08(self):
         """Testing: SaveInstances, LoadInstances"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -135,7 +137,7 @@ class ctc_Toplevel(ctestcase):
             self.assertEqual(e.FindInstance("i1").Name, "i1")
             self.assertEqual(e.FindInstance("i2").Name, "i2")
 
-    def ctf_Top_09(self):
+    def test_Top_09(self):
         """Testing: BSaveInstances, BLoadInstances"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -152,7 +154,7 @@ class ctc_Toplevel(ctestcase):
             self.assertEqual(e.FindInstance("i1").Name, "i1")
             self.assertEqual(e.FindInstance("i2").Name, "i2")
 
-    def ctf_Top_10(self):
+    def test_Top_10(self):
         """Testing: Class.BuildInstance, FindInstanceLocal"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -162,7 +164,7 @@ class ctc_Toplevel(ctestcase):
             i1 = C.BuildInstance("i1")
             self.assertEqual(e.FindInstanceLocal("i1").Name, i1.Name)
 
-    def ctf_Top_11(self):
+    def test_Top_11(self):
         """Testing: RestoreInstancesFromString"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -174,7 +176,7 @@ class ctc_Toplevel(ctestcase):
             self.assert_(e.FindInstance("i2"))
 
 
-    def ctf_TopCurrentEnvironment_01(self):
+    def test_TopCurrentEnvironment_01(self):
         """Testing: CurrentEnvironment, Environment.SetCurrent, Environment.Index"""
         clips.Clear()
         clips.Assert("(duck)")

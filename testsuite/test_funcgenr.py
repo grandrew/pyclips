@@ -29,12 +29,14 @@ Generic:
 
 """
 
+import clips
+from test_00 import ctestcase
 
 
 class ctc_Function(ctestcase):
     """test Function objects"""
 
-    def ctf_Function_01(self):
+    def test_Function_01(self):
         """Testing: BuildFunction, Function.Name, Function.Module"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -44,7 +46,7 @@ class ctc_Function(ctestcase):
             self.assertEqual(f1.Module, "MAIN")
             self.assertEqual(e.Eval('(%s "s1" "s2")' % f1.Name), "s1s2")
 
-    def ctf_Function_02(self):
+    def test_Function_02(self):
         """Testing: RegisterPythonFunction, UnregisterPythonFunction"""
         def tfunc(a, b):
             return a + b
@@ -57,7 +59,7 @@ class ctc_Function(ctestcase):
             self.assertEqual(e.Eval('(python-call tfunc "4" "2")'), "42")
         clips.UnregisterPythonFunction(tfunc)
 
-    def ctf_Function_03(self):
+    def test_Function_03(self):
         """Testing: FindFunction, Function.Deletable, Function.Watch, {...}"""
         """         Function.PPForm"""
         for x in self.envdict.keys():
@@ -76,7 +78,7 @@ class ctc_Function(ctestcase):
 class ctc_Generic(ctestcase):
     """test Generic objects"""
 
-    def ctf_Generic_01(self):
+    def test_Generic_01(self):
         """Testing: BuildGeneric, Generic.AddMethod, Generic.Name, Generic.Watch"""
         def mulstr(s, n):
             return clips.String(s * n)
@@ -101,7 +103,7 @@ class ctc_Generic(ctestcase):
             g1.RemoveMethod(0)
             self.assertEqual(len(g1.MethodList()), 0)
 
-    def ctf_Generic_02(self):
+    def test_Generic_02(self):
         """Testing: Generic.MethodList, Generic.RemoveMethod, Generic.Module"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -116,7 +118,7 @@ class ctc_Generic(ctestcase):
                 g1.RemoveMethod(int(i))
             self.assertEqual(len(g1.MethodList()), 0)
 
-    def ctf_Generic_03(self):
+    def test_Generic_03(self):
         """Testing: FindGeneric, Generic.Deletable, Generic.PPForm"""
         for x in self.envdict.keys():
             e = self.envdict[x]
@@ -129,7 +131,7 @@ class ctc_Generic(ctestcase):
             self.assert_(not g1.Deletable)
             self.assertEqual(e.FindGeneric("g1").PPForm(), g1.PPForm())
 
-    def ctf_Generic_04(self):
+    def test_Generic_04(self):
         """Testing: Generic.MethodWatched, Generic.WatchMethod, {...}"""
         """         Generic.UnwatchMethod, Generic.MethodDeletable"""
         for x in self.envdict.keys():
@@ -144,7 +146,7 @@ class ctc_Generic(ctestcase):
             g1.WatchMethod(1)
             self.assert_(g1.MethodWatched(1))
 
-    def ctf_Generic_05(self):
+    def test_Generic_05(self):
         """Testing: Generic.MethodRestrictions, Generic.MethodDescription"""
         for x in self.envdict.keys():
             e = self.envdict[x]

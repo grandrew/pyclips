@@ -72,8 +72,15 @@ try:
     ClipsSrcZIP = _p('.', zd['clipssrc.zip'])
 except:
     ClipsSrcZIP = "CLIPSSrc.zip"    # will obviously produce an error
-ClipsLIB_dir = _p('.', 'clipssrc')
+ClipsLIB_dir = os.environ.get('CLIPS_SRC', _p('.', 'clipssrc'))
 ClipsPATCH_dir = _p('.', 'optpatch')
+if not os.path.exists(ClipsLIB_dir):
+    print(
+        "The source code for CLIPS could not be found.  Please ensure "
+        "this is available in the clipssrc directory or set the"
+        "environment variable CLIPS_SRC"
+    )
+    sys.exit(3)
 
 
 # make a new setup.h based on current platform (note: this file is a copy
@@ -728,7 +735,7 @@ sys.stdout.write("Done!\n")
 
 
 # retrieve used CLIPS version
-clips_version = get_clips_version(_p("clipssrc", "constant.h"))
+clips_version = get_clips_version(_p(ClipsLIB_dir, "constant.h"))
 print("Found CLIPS version: %s" % clips_version)
 maj, min = clips_version.split('.', 1)
 CFLAGS = [

@@ -260,7 +260,7 @@ import os as  _os
 import types as _types
 
 # the low-level module
-import _clips as _c
+import clips._clips as _c
 
 
 # ========================================================================== #
@@ -303,7 +303,7 @@ CONSERVATION_MODE = _c.CONSERVATION_MODE
 
 
 # import adequate symbols from _clips_wrap
-from _clips_wrap import Nil, Integer, Float, String, Symbol, InstanceName, \\
+from clips._clips_wrap import Nil, Integer, Float, String, Symbol, InstanceName, \\
                         Multifield, _cl2py, _py2cl, _py2clsyntax, \\
                         ClipsIntegerType, ClipsFloatType, ClipsStringType, \\
                         ClipsSymbolType, ClipsInstanceNameType, \\

@@ -33,15 +33,15 @@ Please issue 'print clips.license' at the prompt for licensing information.
 """
 
 
-from _clips_wrap import *
-from _eclips_wrap import Environment, CurrentEnvironment
-from _license import license
-from _version import version, version_string
+from clips._clips_wrap import *
+from clips._eclips_wrap import Environment, CurrentEnvironment
+from clips._license import license
+from clips._version import version, version_string
 
 
 # provide our __dict__ to the _clips_wrap in order to set up stock classes:
 # the name _setParentModuleDict will be removed later
-from _clips_wrap import _setParentModuleDict
+from clips._clips_wrap import _setParentModuleDict
 _setParentModuleDict(globals())
 del _setParentModuleDict
 

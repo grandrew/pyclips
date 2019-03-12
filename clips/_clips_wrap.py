@@ -34,7 +34,7 @@ import sys as _sys
 import os as  _os
 
 # the low-level module
-import _clips as _c
+import clips._clips as _c
 
 # check Python version, and issue an exception if not supported
 if _sys.version[:3] < "2.4":

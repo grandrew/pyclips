@@ -1,0 +1,3 @@
+For a reason yet unkown, building on my machine only works without tox. With tox it gets undefined symbols (Retract)
+
+Solution is to manually download 631 source and build with python setup.py build

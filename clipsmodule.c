@@ -4810,9 +4810,9 @@ returns: the number of fired rules\n\
 arguments:\n\
   limit (int) - number of rules to fire, all if omitted";
 static PyObject *g_run(PyObject *self, PyObject *args) {
-    long runlimit = -1;
+    long long runlimit = -1;
 
-    if(!PyArg_ParseTuple(args, "|i", &runlimit))
+    if(!PyArg_ParseTuple(args, "|L", &runlimit))
         FAIL();
     ACQUIRE_MEMORY_ERROR();
     runlimit = Run(runlimit);
@@ -12509,9 +12509,9 @@ arguments:\n\
 static PyObject *e_run(PyObject *self, PyObject *args) {
     clips_EnvObject *pyenv = NULL;
     void *env = NULL;
-    long runlimit = -1;
+    long long runlimit = -1;
 
-    if(!PyArg_ParseTuple(args, "O!|i", &clips_EnvType, &pyenv, &runlimit))
+    if(!PyArg_ParseTuple(args, "O!|L", &clips_EnvType, &pyenv, &runlimit))
         FAIL();
     CHECK_NOCURENV(pyenv);
     CHECK_VALID_ENVIRONMENT(pyenv);

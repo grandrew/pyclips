@@ -11,3 +11,10 @@ cvtenv.py
 clips/_version.py
 clips/_eclips_wrap.py
 *.pyd
+.venv
+clips_core_source_630
+clips_core_source_631
+*.zip
+*.out
+*.dat
+*.bdat

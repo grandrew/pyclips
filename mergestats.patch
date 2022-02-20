@@ -1,0 +1,44 @@
+diff -u /home/grandrew/sandbox2/pyclips/clips_core_source_630/core/engine.c ./engine.c
+--- /home/grandrew/sandbox2/pyclips/clips_core_source_630/core/engine.c	2015-02-04 19:41:10.000000000 -0800
++++ ./engine.c	2022-02-19 19:08:31.689824830 -0800
+@@ -575,7 +575,7 @@
+ 
+ #if OBJECT_SYSTEM
+       gensprintf(printSpace,"%ld mean number of instances (%ld maximum).\n",
+-                          (long) (((double) sumInstances / (rulesFired + 1)) + 0.5),
++                          (long) (calls),
+                           maxInstances);
+       EnvPrintRouter(theEnv,WDIALOG,printSpace);
+ #endif
+diff -u /home/grandrew/sandbox2/pyclips/clips_core_source_630/core/reteutil.c ./reteutil.c
+--- /home/grandrew/sandbox2/pyclips/clips_core_source_630/core/reteutil.c	2015-03-13 21:53:36.000000000 -0700
++++ ./reteutil.c	2022-02-19 19:13:16.692390031 -0800
+@@ -67,6 +67,8 @@
+ 
+ #include "reteutil.h"
+ 
++int calls = 0;
++
+ /***************************************/
+ /* LOCAL INTERNAL FUNCTION DEFINITIONS */
+ /***************************************/
+@@ -574,6 +576,7 @@
+   struct partialMatch *lhsBind,
+   struct partialMatch *rhsBind)
+   {
++   calls++;
+    struct partialMatch *linker;
+    static struct partialMatch mergeTemplate = { 1 }; /* betaMemory is TRUE, remainder are 0 or NULL */
+   
+diff -u /home/grandrew/sandbox2/pyclips/clips_core_source_630/core/reteutil.h ./reteutil.h
+--- /home/grandrew/sandbox2/pyclips/clips_core_source_630/core/reteutil.h	2015-03-11 18:18:38.000000000 -0700
++++ ./reteutil.h	2022-02-19 19:06:20.638486557 -0800
+@@ -108,6 +108,8 @@
+    LOCALE void                           RemoveBlockedLink(struct partialMatch *);
+    LOCALE unsigned long                  PrintBetaMemory(void *,const char *,struct betaMemory *,int,const char *,int);
+ 
++   int calls;
++
+ #endif /* _H_reteutil */
+ 
+ 
